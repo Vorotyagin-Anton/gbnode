@@ -47,12 +47,16 @@ function timerHandler(date) {
     const dateInMs = new Date(dateParams[3], Number(dateParams[2]) - 1, dateParams[1], dateParams[0]);
     let dateDif = Math.trunc((dateInMs.getTime() - Date.now())/1000) - 540;
 
-    setInterval(() => {
+    let intervalId = setInterval(() => {
         if (dateDif > 0) {
             console.log(`До указанной даты(${date}) осталось ${dateDif} секунд`);
         }
         else if (dateDif === 0) {
             console.log(`Указанная дата(${date}) настала!`);
+            clearInterval(intervalId);
+        } else if (dateDif < 0) {
+            console.log(`Для корректного вывода программы в качестве аргументов укажите даты из будущего.`);
+            clearInterval(intervalId);
         }
         dateDif -= 1;
     }, 1000);
