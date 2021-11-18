@@ -7,11 +7,17 @@
     "dev": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "reader": "hw04.js"
+  },
   "author": "vav",
   "license": "ISC",
   "dependencies": {
     "colors": "^1.4.0",
-    "event-stream": "^4.0.1"
+    "event-stream": "^4.0.1",
+    "inquirer": "^8.2.0",
+    "path": "^0.12.7",
+    "readline": "^1.3.0"
   },
   "devDependencies": {
     "eslint": "^8.1.0"
