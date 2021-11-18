@@ -10,7 +10,8 @@
   "author": "vav",
   "license": "ISC",
   "dependencies": {
-    "colors": "^1.4.0"
+    "colors": "^1.4.0",
+    "event-stream": "^4.0.1"
   },
   "devDependencies": {
     "eslint": "^8.1.0"
