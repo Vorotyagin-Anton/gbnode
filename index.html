@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HW05</title>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; margin: 20px;" id="itemsList">
+        Содержимое директории/файла:<br><br>
+        {{ CONTENT }}
+    </div>
+</body>
+</html>
+<script>
+    const itemsList = document.getElementById('itemsList');
+    itemsList.addEventListener('click', event => {
+        if (event.target.id === 'item') {
+            fetch('http://localhost:3000', {method: 'POST', body: event.target.innerHTML})
+                .then(response => response.json())
+                .then(content => itemsList.innerHTML = content);
+        }
+    })
+</script>
