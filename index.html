@@ -1,0 +1,45 @@
+<html>
+
+<script src="https://cdn.socket.io/3.1.1/socket.io.min.js" integrity="sha384-gDaozqUvc4HTgo8iZjwth73C6dDDeOJsAgpxBcMpZYztUfjHXpzrpdrHRdVp8ySO" crossorigin="anonymous"></script>
+
+<head>
+    <title>Socket App</title>
+</head>
+<body>
+<input type="text" id="input" autofocus>
+<input type="submit" id="send" value="Send">
+<div id="counter">0</div>
+<div id="messages"></div>
+</body>
+<script type="text/javascript">
+    const socket = io('localhost:3000');
+    const userName = `User${Math.floor(Math.random() * 10000)}`;
+
+    const addMessage = (msg, userName = 'info_bot') => {
+        const msgSpan = document.createElement('span').innerHTML = msg;
+        document.getElementById('messages').append(`${userName}: ${msgSpan}`);
+        document.getElementById('messages').append(document.createElement('br'));
+    };
+
+    socket.on('connect', function() {
+        console.log('Successful connected to server');
+    });
+
+    socket.on('SERVER_MSG', function (data) {
+        addMessage(data.msg, data.userName);
+    });
+
+    socket.on('NEW_CONN_EVENT', function (data) {
+        addMessage(data.msg);
+    });
+
+    socket.on('NEW_CLIENTS_AMOUNT', function (data) {
+        document.getElementById('counter').innerHTML = data.clientsAmount;
+    });
+
+    document.getElementById('send').onclick = function() {
+        socket.emit('CLIENT_MSG', { msg: document.getElementById('input').value , userName});
+        document.getElementById('input').value = '';
+    };
+</script>
+</html>
